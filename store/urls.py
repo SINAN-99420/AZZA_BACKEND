@@ -24,4 +24,5 @@ urlpatterns = [
     path("admin/products/", admin_products),
     path("admin/products/<int:product_id>/",admin_product_update),
     path("admin/products/<int:product_id>/delete/",admin_product_delete),
+    path("check-media/", check_media),
 ]

@@ -958,3 +958,18 @@ def admin_product_delete(request, product_id):
     return Response({
         "message": "Product deleted successfully"
     })
+import os
+from django.conf import settings
+@api_view(["GET"])
+def check_media(request):
+    file_path = os.path.join(
+        settings.MEDIA_ROOT,
+        "products",
+        "ChatGPT_Image_Aug_27_2026_07_19_20_PM_nMbRiGt.png"
+    )
+
+    return Response({
+        "media_root": str(settings.MEDIA_ROOT),
+        "file_exists": os.path.exists(file_path),
+        "file_path": file_path,
+    })
