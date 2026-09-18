@@ -8,4 +8,4 @@ pillow==12.3.0
 psycopg2-binary==2.9.12
 sqlparse==0.6.0
 tzdata==2026.3
-whitenoise
+whitenoise==6.12.0
