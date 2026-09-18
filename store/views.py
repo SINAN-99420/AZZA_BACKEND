@@ -90,6 +90,7 @@ def cart_detail(request):
             "subtotal": float(
                 item.variant.price * item.quantity
             ),
+             "image": item.variant.product.image.url if item.variant.product.image else None,
         })
 
     total = sum(
