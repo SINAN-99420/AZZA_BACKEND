@@ -219,7 +219,7 @@ EMAIL_BACKEND = (
 
 CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS",
-    "https://azza-backend.onrender.com,https://azza-three.vercel.app/"
+    "https://azza-backend.onrender.com,https://azza-three.vercel.app"
 ).split(",")
 
 CORS_ALLOW_CREDENTIALS = True
@@ -231,7 +231,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     "CSRF_TRUSTED_ORIGINS",
-    "https://azza-backend.onrender.com,https://azza-three.vercel.app/"
+    "https://azza-backend.onrender.com,https://azza-three.vercel.app"
 ).split(",")
 
 
