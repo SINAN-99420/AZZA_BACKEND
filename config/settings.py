@@ -79,7 +79,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
 
     "corsheaders.middleware.CorsMiddleware",
-    
+
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -194,7 +194,11 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+)
+
+
 # =========================================================
 # MEDIA FILES
 # =========================================================
@@ -241,9 +245,12 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 
 CSRF_COOKIE_HTTPONLY = False
 
-CSRF_COOKIE_SAMESITE = "Lax"
+# Important for Vercel → Render requests
+CSRF_COOKIE_SAMESITE = "None"
 
-SESSION_COOKIE_SAMESITE = "Lax"
+# Important for maintaining Django cart session
+# between Vercel frontend and Render backend
+SESSION_COOKIE_SAMESITE = "None"
 
 
 # =========================================================
