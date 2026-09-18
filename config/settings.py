@@ -67,6 +67,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
 
+    # Cloudinary
+    "cloudinary",
+    "cloudinary_storage",
+
     "store",
 ]
 
@@ -194,18 +198,37 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedManifestStaticFilesStorage"
-)
+
+STORAGES = {
+    "default": {
+        "BACKEND":
+        "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+
+    "staticfiles": {
+        "BACKEND":
+        "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 
 # =========================================================
-# MEDIA FILES
+# CLOUDINARY
 # =========================================================
 
-MEDIA_URL = "/media/"
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get(
+        "CLOUDINARY_CLOUD_NAME"
+    ),
 
-MEDIA_ROOT = BASE_DIR / "media"
+    "API_KEY": os.environ.get(
+        "CLOUDINARY_API_KEY"
+    ),
+
+    "API_SECRET": os.environ.get(
+        "CLOUDINARY_API_SECRET"
+    ),
+}
 
 
 # =========================================================
@@ -245,11 +268,10 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 
 CSRF_COOKIE_HTTPONLY = False
 
-# Important for Vercel → Render requests
+# Vercel → Render
 CSRF_COOKIE_SAMESITE = "None"
 
-# Important for maintaining Django cart session
-# between Vercel frontend and Render backend
+# Django cart session
 SESSION_COOKIE_SAMESITE = "None"
 
 

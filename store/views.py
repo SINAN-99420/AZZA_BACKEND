@@ -965,7 +965,7 @@ def check_media(request):
     file_path = os.path.join(
         settings.MEDIA_ROOT,
         "products",
-        "ChatGPT_Image_Aug_27_2026_07_19_20_PM_nMbRiGt.png"
+        "ChatGPT_Image_Aug_27_2026_07_19_20_PM.png"
     )
 
     return Response({
