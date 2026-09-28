@@ -268,11 +268,11 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
 
 CSRF_COOKIE_HTTPONLY = False
 
-# Vercel → Render
-CSRF_COOKIE_SAMESITE = "None"
-
-# Django cart session
-SESSION_COOKIE_SAMESITE = "None"
+# Production: "None" so Vercel → Render cookies (cart session, CSRF) work.
+# Local HTTP: browsers reject SameSite=None without Secure, which breaks
+# the admin login cookies on http://127.0.0.1, so use "Lax" in DEBUG.
+CSRF_COOKIE_SAMESITE = "Lax" if DEBUG else "None"
+SESSION_COOKIE_SAMESITE = "Lax" if DEBUG else "None"
 
 
 # =========================================================

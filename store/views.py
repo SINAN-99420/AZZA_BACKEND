@@ -354,21 +354,22 @@ def create_order(request):
         status=status.HTTP_201_CREATED
     )
 
-
 @api_view(["GET"])
 def my_orders(request):
+    name = request.GET.get("name")
     phone = request.GET.get("phone")
 
-    if not phone:
+    if not name or not phone:
         return Response(
             {
-                "error": "Phone number is required"
+                "error": "Name and phone number are required"
             },
             status=status.HTTP_400_BAD_REQUEST
         )
 
     orders = Order.objects.filter(
-        phone=phone
+        name__iexact=name.strip(),
+        phone=phone.strip()
     ).prefetch_related(
         "items__variant__product"
     ).order_by(
@@ -384,9 +385,7 @@ def my_orders(request):
             items.append({
                 "product": item.variant.product.name,
                 "quantity": item.quantity,
-                "weight": float(
-                    item.variant.quantity
-                ),
+                "weight": float(item.variant.quantity),
                 "unit": item.variant.unit,
                 "price": float(item.price),
                 "subtotal": float(
@@ -409,8 +408,6 @@ def my_orders(request):
     return Response({
         "orders": data
     })
-
-
 @api_view(["GET"])
 def csrf_token(request):
     token = get_token(request)
